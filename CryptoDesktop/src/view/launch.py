@@ -6,14 +6,15 @@ Created on 12 июля 2014 г.
 
 from PyQt4 import QtGui
 import sys
+
 from view.EncodeView import EncodeView
 from view.DecodeView import DecodeView
 
 class Window(QtGui.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.EV = EncodeView()
-        self.DV = DecodeView()
+        Window.EV = EncodeView()
+        Window.DV = DecodeView()
 
     def initializeWindow(self):
         self.resize(250, 150)
