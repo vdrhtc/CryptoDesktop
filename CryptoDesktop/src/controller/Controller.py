@@ -3,7 +3,7 @@ Created on 17 июля 2014 г.
 
 @author: gleb
 '''
-
+from coder.coder import *
 
 class Controller(object):
     '''
@@ -12,5 +12,9 @@ class Controller(object):
         
     @staticmethod
     def handle_encoding(text):
-        return text;
+        return encode(text)
+    
+    @staticmethod
+    def handle_decoding(text):
+        return decode(text)
         

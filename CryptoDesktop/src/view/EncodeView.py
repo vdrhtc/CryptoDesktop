@@ -20,6 +20,9 @@ class EncodeView(QWidget):
     
     def encode_handler(self):
         self.outputBox.setText(Controller.handle_encoding(self.inputBox.toPlainText()))
+        
+    def method_toggle_handler(self):
+        self.methodBox.setVisible(self.methodBox.isHidden())
 
     def makeEncodeButton(self, base):
         encodeButton = QPushButton('Encode')
@@ -38,6 +41,14 @@ class EncodeView(QWidget):
         self.outputBox = outputBox
         base.addWidget(outputBox)
 
+
+    def makeMethodBoxArea(self, base):
+        methodBoxToggler = QPushButton("Matrix filling rule")
+        self.methodBox = QTextEdit()
+        methodBoxToggler.clicked.connect(self.method_toggle_handler)
+        base.addWidget(methodBoxToggler)
+        base.addWidget(self.methodBox)
+
     def buildEncodeView(self):
         base = QVBoxLayout(self)
         base.addWidget(QLabel("Enter text to encode:"))
@@ -45,5 +56,4 @@ class EncodeView(QWidget):
         self.makeEncodeButton(base)
         base.addWidget(QLabel("Cyphered text:"))
         self.makeOutputTextBox(base)
-
-        
+        self.makeMethodBoxArea(base)
