@@ -11,10 +11,10 @@ from view.EncodeView import EncodeView
 from view.DecodeView import DecodeView
 
 class Window(QtGui.QMainWindow):
-    def __init__(self):
+    def __init__(self, app):
         super().__init__()
-        Window.EV = EncodeView()
-        Window.DV = DecodeView()
+        Window.EV = EncodeView(app.clipboard())
+        Window.DV = DecodeView(app.clipboard())
 
     def initializeWindow(self):
         self.resize(250, 150)
@@ -25,12 +25,11 @@ class Window(QtGui.QMainWindow):
         tabWidget.addTab(self.EV, 'Encode')
         tabWidget.addTab(self.DV, 'Decode')
         self.setCentralWidget(tabWidget)
-          
         self.show()
 
         
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
-    W = Window()
+    W = Window(app)
     W.initializeWindow()
     sys.exit(app.exec_())
