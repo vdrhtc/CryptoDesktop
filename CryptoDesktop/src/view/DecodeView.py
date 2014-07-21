@@ -6,22 +6,24 @@ Created on 17 июля 2014 г.
 
 from PyQt4.QtGui import *
 from controller.Controller import Controller
+from view.EncodeView import EncodeView
 class DecodeView(QWidget):
     '''
     Class that builds decode view
     '''
 
-    def __init__(self, clipboard):
+    def __init__(self, clipboard, options):
         super().__init__()
         self.clipboard = clipboard
+        self.options = options
         self.buildDecodeView()
     
     def decode_handler(self):
         if self.readFromClipboard.isChecked():
-            self.outputBox.setText(Controller.handle_decoding(self.clipboard.text()))
+            self.outputBox.setText(Controller.handle_decoding(self.clipboard.text(), self.options.get_matrix_building_rule()))
         else:
-            self.outputBox.setText(Controller.handle_decoding(self.inputBox.toPlainText()))
-        
+            self.outputBox.setText(Controller.handle_decoding(self.inputBox.toPlainText(), self.options.get_matrix_building_rule()))
+
     def mode_switcher(self):
         if self.readFromClipboard.isChecked():
             self.inputBox.hide()

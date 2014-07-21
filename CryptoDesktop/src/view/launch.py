@@ -9,12 +9,14 @@ import sys
 
 from view.EncodeView import EncodeView
 from view.DecodeView import DecodeView
+from view.OptionsView import OptionsView
 
 class Window(QtGui.QMainWindow):
     def __init__(self, app):
         super().__init__()
-        Window.EV = EncodeView(app.clipboard())
-        Window.DV = DecodeView(app.clipboard())
+        Window.OV = OptionsView()
+        Window.EV = EncodeView(app.clipboard(), Window.OV)
+        Window.DV = DecodeView(app.clipboard(), Window.OV)
 
     def initializeWindow(self):
         self.resize(250, 150)
@@ -24,6 +26,7 @@ class Window(QtGui.QMainWindow):
         tabWidget = QtGui.QTabWidget()
         tabWidget.addTab(self.EV, 'Encode')
         tabWidget.addTab(self.DV, 'Decode')
+        tabWidget.addTab(self.OV, 'Options')
         self.setCentralWidget(tabWidget)
         self.show()
 

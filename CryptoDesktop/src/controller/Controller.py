@@ -11,10 +11,10 @@ class Controller(object):
     '''
         
     @staticmethod
-    def handle_encoding(text):
-        return encode(text)
+    def handle_encoding(text, method):
+        return encode(text, method)
     
     @staticmethod
-    def handle_decoding(text):
-        return decode(text)
+    def handle_decoding(text, method):
+        return decode(text, method)
         

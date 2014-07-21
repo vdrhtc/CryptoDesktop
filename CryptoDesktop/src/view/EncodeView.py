@@ -14,22 +14,19 @@ class EncodeView(QWidget):
     inputBox = None
     outputBox = None
    
-    def __init__(self, clipboard):
+    def __init__(self, clipboard, options):
         super().__init__()
+        self.options = options
         self.clipboard = clipboard
         self.buildEncodeView()
         
     def encode_handler(self):
         if not self.toClipboard.isChecked():
-            self.outputBox.setText(Controller.handle_encoding(self.inputBox.toPlainText()))
+            self.outputBox.setText(Controller.handle_encoding(self.inputBox.toPlainText(), self.options.get_matrix_building_rule()))
         else:
-            self.clipboard.setText(Controller.handle_encoding(self.inputBox.toPlainText()))
+            self.clipboard.setText(Controller.handle_encoding(self.inputBox.toPlainText(), self.options.get_matrix_building_rule()))
+
         
-        
-        
-    def method_area_visibility_toggler(self):
-        self.methodBox.setVisible(self.methodBox.isHidden())
-    
     def mode_switcher(self):
         if self.toClipboard.isChecked():
             self.outputBox.hide()
@@ -60,14 +57,6 @@ class EncodeView(QWidget):
         base.addWidget(outputBox)
 
 
-    def makeMethodBoxArea(self, base):
-        methodBoxToggler = QPushButton("Matrix filling rule")
-        self.methodBox = QTextEdit()
-        methodBoxToggler.clicked.connect(self.method_area_visibility_toggler)
-        base.addWidget(methodBoxToggler)
-        base.addWidget(self.methodBox)
-        self.methodBox.hide()
-
     def buildEncodeView(self):
         base = QGridLayout(self)
         base.setSpacing(10)
@@ -78,4 +67,3 @@ class EncodeView(QWidget):
         self.outputLabel = QLabel("Cyphered text:")
         base.addWidget(self.outputLabel, 3,0)
         self.makeOutputTextBox(base)
-        self.makeMethodBoxArea(base)
