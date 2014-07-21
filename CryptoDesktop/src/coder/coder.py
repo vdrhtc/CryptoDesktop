@@ -30,7 +30,7 @@ def create_matrix(n, f):
         rows.append([ f(i,j)  for j in range(0, n)])
     res_matrix = matrix(rows)
     
-    while(linalg.det(res_matrix)==0):
+    while linalg.det(res_matrix)<1e-5:
         res_matrix+=eye(n)
     print(res_matrix) 
     print(res_matrix.I)     
